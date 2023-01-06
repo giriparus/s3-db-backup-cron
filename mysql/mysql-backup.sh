@@ -12,5 +12,3 @@ echo "Done backing up the database to a file."
 echo "Starting compression..."
 tar czf ${FILE_PATH}${FILENAME}.tar.gz ${FILE_PATH}${FILENAME}.sql
 echo "Done compressing the backup file."
-
-

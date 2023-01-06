@@ -32,22 +32,26 @@ Add the below section to your docker compose:
   backups:
     build:
       context: ./backups
-      args:
-        HOUR_OF_DAY: 23
     depends_on:
       - <"db">
     networks:
       - <db>
     environment:
       - BUCKET_NAME=<abc.bucket.com>
+      # Only when backing up MYSQL
       - MYSQL_USERNAME=
       - MYSQL_PASSWORD=
       - SERVER=
       - DB_NAME=
+      # Only when backing up MariaDB
+      - MONGODB_URI=
+      - MONGO_DATABASES=
+      # Specify backup time, defaults to 23
+      - HOUR_OF_DAY=      
       # Specify AWS credentials or skip if using AWS IAM roles 
       - AWS_ACCESS_KEY_ID=
       - AWS_SECRET_ACCESS_KEY=   
     restart: always
 ```
 
-Using [Dockerhub](https://hub.docker.com/r/fundwave/s3-mysql-backup-cron)? Replace `build:` with `image: fundwave/s3-mysql-backup-cron:latest`, but you won't be able to change `HOUR_OF_DAY` as it's a build arg.
+Using [Dockerhub](https://hub.docker.com/r/fundwave/s3-mysql-backup-cron)? Replace `build:` with `image: fundwave/s3-mysql-backup-cron:latest`
