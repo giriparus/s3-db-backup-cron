@@ -4,6 +4,14 @@ SERVER=${SERVER:-"db"}
 FILE_NAME=${FILE_NAME:-"backup"}
 CURRENT_DIR=$(dirname $0)
 
+ENV=${ENV:-"PROD"}
+
+if [ $ENV == 'TRIAL' ] || [ $ENV == 'trial' ]
+then
+  echo "No backups since environment is $ENV"
+  exit 0
+fi
+
 if ! [ -z ${DB_NAME} ] ; then 
 
   echo "MYSQL BACKUP"
