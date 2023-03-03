@@ -5,7 +5,7 @@ MYSQL_PASSWORD=${2}
 SERVER=${3:-'db'}
 DATABASE=${4}
 FILENAME=${5:-'backup'}
-FILE_PATH=${6:/opt/backup}
+FILE_PATH=${6:-'/opt/backup'}
 
 mysqldump -h ${SERVER} --skip-dump-date --quick --user=${MYSQL_USERNAME} --password=${MYSQL_PASSWORD} ${DATABASE} > ${FILE_PATH}${FILENAME}.sql
 echo "Done backing up the database to a file."
