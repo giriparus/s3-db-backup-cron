@@ -48,7 +48,13 @@ Add the below section to your docker compose:
       # Specify AWS credentials or skip if using AWS IAM roles 
       - AWS_ACCESS_KEY_ID=
       - AWS_SECRET_ACCESS_KEY=   
+      # Specify only when backups need to be disabled
+      - BACKUPS_DISABLED=TRUE
     restart: always
 ```
+
+### NOTE
+
+Backups are always enabled by default. If you wish to disable backups, you can set the BACKUPS_DISABLED environment variable as `TRUE` or `true`.
 
 Using [Dockerhub](https://hub.docker.com/r/fundwave/s3-db-backup-cron)? Replace `build:` with `image: fundwave/s3-db-backup-cron:latest`
