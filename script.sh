@@ -12,7 +12,7 @@ then
   exit 0
 fi
 
-if ! [ -z ${DB_NAME} ] ; then 
+if ! [ -z ${DB_NAME} ] && ! [  -z ${SERVER} ] ; then 
 
   echo "MYSQL BACKUP"
   echo "============"
@@ -27,7 +27,7 @@ if ! [ -z ${DB_NAME} ] ; then
 
 fi;
 
-if ! [ -z ${MONGO_DATABASES} ] && ! [  -z ${MONGODB_URI} ] ; then 
+if ! [ -z ${MONGODB_URI} ] ; then 
 
   echo "MONGO BACKUP"
   echo "============"

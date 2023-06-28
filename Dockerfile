@@ -1,7 +1,7 @@
 FROM alpine:latest
 LABEL maintainer="mohit@getfundwave.com"
 
-RUN apk update && apk add --no-cache python3 py3-pip && pip3 install --upgrade pip && apk add mongodb-tools && pip3 install awscli && apk add mysql-client && apk add bash && apk add openssl && apk add coreutils && mkdir -p /opt/backup
+RUN apk update && apk add --no-cache python3 py3-pip && pip3 install --upgrade pip && apk add mongodb-tools && pip3 install awscli && apk add mysql-client && apk add bash && apk add openssl && apk add coreutils && apk add curl && mkdir -p /opt/backup
 ARG HOUR_OF_DAY
 #ENV CRON_HOUR=${HOUR_OF_DAY:-23}
 

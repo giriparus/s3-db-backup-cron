@@ -1,1 +1,5 @@
 threshold: medium
+
+fileignoreconfig:
+- filename: mongodb/mongo-backup.sh
+  checksum: a1139befccd2c4fa5651b25c65d1b19d94eebcdef19df535a707c6f54d8c06e8
