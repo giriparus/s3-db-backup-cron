@@ -12,6 +12,8 @@ then
   exit 0
 fi
 
+mkdir -p /var/log/backup.log
+
 if ! [ -z ${DB_NAME} ] && ! [  -z ${SERVER} ] ; then 
 
   echo "MYSQL BACKUP"
