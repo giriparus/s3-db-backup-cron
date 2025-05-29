@@ -48,6 +48,8 @@ Add the below section to your docker compose:
       # Specify AWS credentials or skip if using AWS IAM roles 
       - AWS_ACCESS_KEY_ID=
       - AWS_SECRET_ACCESS_KEY=   
+      # Specify only if you want the backups stored in a specific folder
+      - S3_PREFIX=
       # Specify only when backups need to be disabled
       - BACKUPS_DISABLED=TRUE
     restart: always
