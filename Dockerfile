@@ -2,7 +2,7 @@ FROM alpine:3.18.3
 LABEL maintainer="mohit@getfundwave.com"
 
 RUN apk update && apk add --no-cache python3 py3-pip \
-    && pip3 install --upgrade pip --break-system-packages \
+    && pip3 install --upgrade pip \
     && apk add mongodb-tools \
     && pip3 install awscli --break-system-packages \
     && apk add mysql-client bash openssl coreutils curl \
