@@ -6,6 +6,17 @@ CURRENT_DIR=$(dirname $0)
 
 BACKUPS_DISABLED=${BACKUPS_DISABLED:-"false"}
 
+if [ -z ${BUCKET_NAME} ] ; then
+  echo "BUCKET_NAME is not set, exiting." 1>&2;
+  exit 1;
+fi
+
+if [ -z ${S3_PREFIX} ] ; then
+  echo "S3_PREFIX is not set, backups will be stored in the root of the bucket."
+else
+  echo "S3_PREFIX is set to ${S3_PREFIX}";
+fi
+
 if [ $BACKUPS_DISABLED == 'TRUE' ] || [ $BACKUPS_DISABLED == 'true' ]
 then
   echo "No backups since BACKUPS_DISABLED is set to $BACKUPS_DISABLED ."
