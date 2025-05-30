@@ -7,8 +7,8 @@ CURRENT_DIR=$(dirname $0)
 BACKUPS_DISABLED=${BACKUPS_DISABLED:-"false"}
 
 if [ -z ${BUCKET_NAME} ] ; then
-  echo "BUCKET_NAME is not set, exiting."
-  exit 1
+  echo "BUCKET_NAME is not set, exiting." 1>&2;
+  exit 1;
 fi
 
 if [ -z ${S3_PREFIX} ] ; then
