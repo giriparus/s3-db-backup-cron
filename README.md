@@ -43,6 +43,10 @@ Add the below section to your docker compose:
       # Only when backing up MongoDB
       - MONGODB_URI=
       - MONGO_DATABASES=
+      # Optional: filter documents with a JSON query, e.g. {"status": "active"}
+      # mongodump requires MONGO_COLLECTION when MONGO_QUERY is set
+      - MONGO_COLLECTION=
+      - MONGO_QUERY=
       # Specify backup hour of day, defaults to 23
       - HOUR_OF_DAY=      
       # Specify AWS credentials or skip if using AWS IAM roles 

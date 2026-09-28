@@ -10,9 +10,18 @@ if echo "$MONGODB_URI" | grep -q "MONGODB-AWS"; then
 
 fi
 
+FILTER_ARGS=()
+if [ -n "${MONGO_QUERY}" ]; then
+  if [ -z "${MONGO_COLLECTION}" ]; then
+    echo "MONGO_COLLECTION must be set when MONGO_QUERY is used" 1>&2
+    exit 1
+  fi
+  FILTER_ARGS=(--collection "${MONGO_COLLECTION}" --query "${MONGO_QUERY}")
+fi
+
 if [ -z ${MONGO_DATABASES} ]; then
                                                                                                                                          
-  CMD_OUT=$(mongodump --uri ${MONGODB_URI} --forceTableScan --out "./mongoBackups/db" 2>&1)                                                
+  CMD_OUT=$(mongodump --uri ${MONGODB_URI} "${FILTER_ARGS[@]}" --forceTableScan --out "./mongoBackups/db" 2>&1)                                                
   if (grep -qw "0" <<< $?) then echo "$CMD_OUT"; else echo "$CMD_OUT" 1>&2 ; fi                                                            
 
 else
@@ -21,7 +30,7 @@ else
   for val in $MONGO_DATABASES;                                                                                                               
   do                                                                                                                                         
   echo $val                                                                                                                                  
-  CMD_OUT=$(mongodump --uri ${MONGODB_URI}/${val} --forceTableScan --out "./mongoBackups/db" 2>&1)                                           
+  CMD_OUT=$(mongodump --uri ${MONGODB_URI}/${val} "${FILTER_ARGS[@]}" --forceTableScan --out "./mongoBackups/db" 2>&1)                                           
   if (grep -qw "0" <<< $?) then echo "$CMD_OUT"; else echo "$CMD_OUT" 1>&2 ; fi                                                              
   done                                                                                                                                   
 
