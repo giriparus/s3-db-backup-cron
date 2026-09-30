@@ -42,6 +42,7 @@ Add the below section to your docker compose:
       - DB_NAME=
       # Only when backing up MongoDB
       - MONGODB_URI=
+      # Comma separated. Each replaces any database already in MONGODB_URI; its options are kept
       - MONGO_DATABASES=
       # Optional: limit a database in MONGO_DATABASES to one collection, with an optional query
       # Quote the whole entry for YAML, and write $ as $$ so compose does not interpolate it

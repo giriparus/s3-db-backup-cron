@@ -16,6 +16,18 @@ if ! jq -e 'type == "object" and all(.[]; .collection | type == "string")' <<< "
   exit 1
 fi
 
+uri_for_db() {
+  local URI=$1 DB=$2 OPTIONS=""
+  if [[ "$URI" == *\?* ]]; then
+    OPTIONS="?${URI#*\?}"
+    URI=${URI%%\?*}
+  fi
+  local SCHEME=${URI%%://*}
+  local HOSTS=${URI#*://}
+  HOSTS=${HOSTS%%/*}
+  echo "$SCHEME://$HOSTS/$DB$OPTIONS"
+}
+
 filter_args() {
   local DB=$1
   FILTER_ARGS=(--forceTableScan)
@@ -38,7 +50,7 @@ else
   do                                                                                                                                         
   echo $val                                                                                                                                  
   filter_args "$val"
-  CMD_OUT=$(mongodump --uri ${MONGODB_URI}/${val} "${FILTER_ARGS[@]}" --out "./mongoBackups/db" 2>&1)                                           
+  CMD_OUT=$(mongodump --uri "$(uri_for_db "$MONGODB_URI" "$val")" "${FILTER_ARGS[@]}" --out "./mongoBackups/db" 2>&1)                                           
   if (grep -qw "0" <<< $?) then echo "$CMD_OUT"; else echo "$CMD_OUT" 1>&2 ; fi                                                              
   done                                                                                                                                   
 
